@@ -1,16 +1,12 @@
 package com.example.domain.customer;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-public interface CustomerRepository {
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-	List<Customer> findAll();
-
-	List<Customer> findAllOrderByName();
-
-	Customer findOne(Integer customerId);
-
-	Customer save(Customer customer);
-
-	void delete(Integer customerId);
+	@Query("SELECT x FROM Customer x ORDER BY x.firstName, x.lastName")
+	Page<Customer> findAllOrderByName(Pageable pageable);
 }
