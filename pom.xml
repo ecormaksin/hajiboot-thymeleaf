@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>hajiboot-jpa</artifactId>
+	<artifactId>hajiboot-rest</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>hajiboot-jpa</name>
 	<description>はじめてのSring Bootの写経</description>
