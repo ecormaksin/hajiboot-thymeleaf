@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>hajiboot-rest</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>hajiboot-jpa</name>
+	<name>hajiboot-rest</name>
 	<description>はじめてのSring Bootの写経</description>
 
 	<properties>
@@ -22,9 +22,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -64,6 +67,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<dependencies>
+					<!-- https://mvnrepository.com/artifact/org.springframework/springloaded -->
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>springloaded</artifactId>
+						<version>1.2.8.RELEASE</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

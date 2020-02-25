@@ -1,8 +1,11 @@
-package com.example.domain.customer;
+package com.example.application;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import com.example.domain.customer.Customer;
+import com.example.domain.customer.CustomerRepository;
 
 @Service
 public class CustomerService {
@@ -16,8 +19,8 @@ public class CustomerService {
 		return customerRepository.findAll();
 	}
 	
-	public Customer getOne(Integer id) {
-		return customerRepository.getOne(id);
+	public Customer findOne(Integer id) {
+		return customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
 	}
 
 	public Customer create(Customer customer) {
