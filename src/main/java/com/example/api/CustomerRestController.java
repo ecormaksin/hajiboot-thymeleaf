@@ -1,8 +1,10 @@
 package com.example.api;
 
 import java.net.URI;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +33,8 @@ public class CustomerRestController {
 	
 	// 顧客全件取得
 	@GetMapping
-	List<Customer> getCustomers() {
-		List<Customer> customers = customerService.findAll();
+	Page<Customer> getCustomers(@PageableDefault Pageable pageable) {
+		Page<Customer> customers = customerService.findAll(pageable);
 		return customers;
 	}
 	

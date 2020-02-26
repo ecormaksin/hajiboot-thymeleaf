@@ -2,6 +2,8 @@ package com.example.application;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.customer.Customer;
@@ -17,6 +19,10 @@ public class CustomerService {
 
 	public List<Customer> findAll() {
 		return customerRepository.findAll();
+	}
+	
+	public Page<Customer> findAll(Pageable pageable) {
+		return customerRepository.findAllOrderByName(pageable);
 	}
 	
 	public Customer findOne(Integer id) {
