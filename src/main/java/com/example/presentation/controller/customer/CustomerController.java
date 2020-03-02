@@ -1,0 +1,49 @@
+package com.example.presentation.controller.customer;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.application.customer.components.CustomerCommandService;
+import com.example.application.customer.components.CustomerQueryService;
+import com.example.domain.customer.model.Customer;
+import com.example.domain.customer.model.CustomerForm;
+
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequestMapping("customers")
+@RequiredArgsConstructor
+public class CustomerController {
+
+	private final CustomerQueryService customerQueryService;
+	private final CustomerCommandService customerCommandService;
+	
+	@ModelAttribute
+	CustomerForm setUpForm() {
+		return new CustomerForm();
+	}
+	
+	@GetMapping
+	String list(Model model) {
+		List<Customer> customers = customerQueryService.findAll();
+		model.addAttribute("customers", customers);
+		return "customers/list";
+	}
+	
+	@PostMapping(value = "create")
+	String create(@Validated CustomerForm form, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return list(model);
+		}
+		customerCommandService.create(form);
+		return "redirect:/customers";
+	}
+}
