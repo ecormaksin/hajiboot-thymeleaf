@@ -67,4 +67,10 @@ public class CustomerController {
 	String goToTop() {
 		return "redirect:/customers";
 	}
+	
+	@PostMapping(value = "delete")
+	String delete(@RequestParam Integer id) {
+		customerCommandService.delete(id);
+		return "redirect:/customers";
+	}
 }
