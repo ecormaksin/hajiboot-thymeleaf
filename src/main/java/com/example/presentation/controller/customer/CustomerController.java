@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.application.customer.components.CustomerCommandService;
 import com.example.application.customer.components.CustomerQueryService;
@@ -44,6 +45,26 @@ public class CustomerController {
 			return list(model);
 		}
 		customerCommandService.create(form);
+		return "redirect:/customers";
+	}
+	
+	@GetMapping(value = "edit", params = "form")
+	String editForm(@RequestParam Integer id, CustomerForm form) {
+		customerQueryService.findOne(id, form);
+		return "customers/edit";
+	}
+	
+	@PostMapping(value = "edit")
+	String edit(@RequestParam Integer id, @Validated CustomerForm form, BindingResult result) {
+		if (result.hasErrors()) {
+			return editForm(id, form);
+		}
+		customerCommandService.update(id, form);
+		return "redirect:/customers";
+	}
+	
+	@GetMapping(value = "edit", params = "goToTop")
+	String goToTop() {
 		return "redirect:/customers";
 	}
 }

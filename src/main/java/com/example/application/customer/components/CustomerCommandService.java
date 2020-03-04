@@ -25,6 +25,12 @@ public class CustomerCommandService {
 		return customerRepository.save(customer);
 	}
 
+	public Customer update(Integer id, CustomerForm form) {
+		Customer customer = customerConverter.formToEntity(form);
+		customer.setId(id);
+		return this.update(customer);
+	}
+	
 	public Customer update(Customer customer) {
 		return customerRepository.save(customer);
 	}
