@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+legend {
+	border-bottom: solid 1px lightgrey;
+}
+
 .error-input {
 	border-color: #b94a48;
 	margin-left: 5px;
