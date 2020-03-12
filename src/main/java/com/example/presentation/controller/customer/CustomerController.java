@@ -2,6 +2,7 @@ package com.example.presentation.controller.customer;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.application.customer.components.CustomerCommandService;
 import com.example.application.customer.components.CustomerQueryService;
+import com.example.application.user.components.LoginUserDetails;
 import com.example.domain.customer.model.Customer;
 import com.example.domain.customer.model.CustomerForm;
 
@@ -40,11 +42,11 @@ public class CustomerController {
 	}
 	
 	@PostMapping(value = "create")
-	String create(@Validated CustomerForm form, BindingResult result, Model model) {
+	String create(@Validated CustomerForm form, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails userDetails) {
 		if (result.hasErrors()) {
 			return list(model);
 		}
-		customerCommandService.create(form);
+		customerCommandService.create(form, userDetails.getUser());
 		return "redirect:/customers";
 	}
 	
@@ -55,11 +57,11 @@ public class CustomerController {
 	}
 	
 	@PostMapping(value = "edit")
-	String edit(@RequestParam Integer id, @Validated CustomerForm form, BindingResult result) {
+	String edit(@RequestParam Integer id, @Validated CustomerForm form, BindingResult result, @AuthenticationPrincipal LoginUserDetails userDetails) {
 		if (result.hasErrors()) {
 			return editForm(id, form);
 		}
-		customerCommandService.update(id, form);
+		customerCommandService.update(id, form, userDetails.getUser());
 		return "redirect:/customers";
 	}
 	
