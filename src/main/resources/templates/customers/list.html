@@ -7,6 +7,9 @@
 </head>
 <body>
 <div layout:fragment="content" class="col-sm-12">
+	<p>
+		<a th:href="@{/logout}" class="btn btn-secondary btn-xs">ログアウト</a>
+	</p>
 	<form th:action="@{/customers/create}" th:object="${customerForm}" class="form-horizontal" method="post">
 		<fieldset>
 			<legend>顧客情報作成</legend>
@@ -51,6 +54,7 @@
 			<td th:text="${customer.id}">100</td>
 			<td th:text="${customer.lastName}">山田</td>
 			<td th:text="${customer.firstName}">太郎</td>
+			<td th:text="${customer.user.username}">duke</td>
 			<td>
 				<form th:action="@{/customers/edit}" method="get">
 					<input class="btn btn-secondary" type="submit" name="form" value="編集"/>
