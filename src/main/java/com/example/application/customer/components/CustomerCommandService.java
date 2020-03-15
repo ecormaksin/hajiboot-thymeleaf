@@ -17,9 +17,14 @@ public class CustomerCommandService {
 	private final CustomerRepository customerRepository;
 	private final CustomerConverter customerConverter;
 	
+	private Customer save(Customer customer, User user) {
+		customer.setUser(user);
+		return customerRepository.save(customer);
+	}
+	
 	public Customer create(CustomerForm form, User user) {
 		Customer customer = customerConverter.formToEntity(form);
-		return create(customer, user);
+		return this.save(customer, user);
 	}
 	
 	public Customer create(Customer customer, User user) {
@@ -33,8 +38,7 @@ public class CustomerCommandService {
 	}
 	
 	public Customer update(Customer customer, User user) {
-		customer.setUser(user);
-		return customerRepository.save(customer);
+		return this.save(customer, user);
 	}
 	
 	public void delete(Integer id) {

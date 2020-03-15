@@ -4,4 +4,10 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper=false)
 public class FirstName extends NamePart {
+
+	protected FirstName() {}
+	
+	public FirstName(String value) {
+		super(value);
+	}
 }

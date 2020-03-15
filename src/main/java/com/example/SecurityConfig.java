@@ -28,19 +28,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.authorizeRequests()
-				.antMatchers(LOGIN_FORM_RELATIVE_PATH).permitAll()
-				.anyRequest().authenticated();
+		http
+			.authorizeRequests()
+			.antMatchers(LOGIN_FORM_RELATIVE_PATH).permitAll()
+			.anyRequest().authenticated();
 		http.formLogin()
-				.loginProcessingUrl("/login")
-				.loginPage(LOGIN_FORM_RELATIVE_PATH)
-				.failureUrl(LOGIN_FORM_RELATIVE_PATH + "?error")
-				.defaultSuccessUrl("/customers", true)
-				.usernameParameter("username").passwordParameter("password")
-				.and();
+			.loginProcessingUrl("/login")
+			.loginPage(LOGIN_FORM_RELATIVE_PATH)
+			.failureUrl(LOGIN_FORM_RELATIVE_PATH + "?error")
+			.defaultSuccessUrl("/customers", true)
+			.usernameParameter("username").passwordParameter("password")
+			.and();
 		http.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
-				.logoutSuccessUrl(LOGIN_FORM_RELATIVE_PATH);
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
+			.logoutSuccessUrl(LOGIN_FORM_RELATIVE_PATH);
 	}
 	
 	@Configuration
