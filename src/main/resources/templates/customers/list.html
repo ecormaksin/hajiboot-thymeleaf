@@ -6,10 +6,8 @@
 	<title>顧客一覧</title>
 </head>
 <body>
+<p layout:fragment="loginUser" th:include="loginUser :: loginUser"></p>
 <div layout:fragment="content" class="col-sm-12">
-	<p>
-		<a th:href="@{/logout}" class="btn btn-secondary btn-xs">ログアウト</a>
-	</p>
 	<form th:action="@{/customers/create}" th:object="${customerForm}" class="form-horizontal" method="post">
 		<fieldset>
 			<legend>顧客情報作成</legend>
