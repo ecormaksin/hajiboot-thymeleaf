@@ -9,10 +9,12 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import lombok.RequiredArgsConstructor;
 import net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy;
 
+@Profile("heroku")
 @Configuration
 @RequiredArgsConstructor
 public class AppConfig {
@@ -20,33 +22,43 @@ public class AppConfig {
 	private final DataSourceProperties properties;
 	DataSource dataSource;
 	
+	@RequiredArgsConstructor
+	private class DBUserInfo {
+		private final static int INDEX_USER_NAME = 0;
+		private final static int INDEX_PASSWORD = 1;
+
+		private final String userInfo;
+		
+		public String username() {
+			return getProperty(INDEX_USER_NAME);
+		}
+		
+		public String password() {
+			return getProperty(INDEX_PASSWORD);
+		}
+		
+		private String getProperty(int index) {
+			return this.userInfo.split(":")[index];
+		}
+	}
+
 	@Bean(destroyMethod = "close")
 	DataSource realDataSource() throws URISyntaxException {
-		String url;
-		String username;
-		String password;
 		
 		String databaseUrl = System.getenv("DATABASE_URL");
-		if (databaseUrl != null) {
-			URI dbUri = new URI(databaseUrl);
-			url = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath() + ":" + dbUri.getPort() + dbUri.getPath();
-			username = dbUri.getUserInfo().split(":")[0];
-			password = dbUri.getUserInfo().split(":")[1];
-		} else {
-			url = this.properties.getUrl();
-			username = this.properties.getUsername();
-			password = this.properties.getPassword();
-		}
+		URI dbUri = new URI(databaseUrl);
+		String url = "jdbc:log4jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath() + ":" + dbUri.getPort() + dbUri.getPath();
+		DBUserInfo dBUserInfo = new DBUserInfo(dbUri.getUserInfo());
 		
 		DataSourceBuilder<?> factory = DataSourceBuilder
 				.create(this.properties.getClassLoader())
 				.url(url)
-				.username(username)
-				.password(password);
+				.username(dBUserInfo.username())
+				.password(dBUserInfo.password());
 		this.dataSource = factory.build();
 		return this.dataSource;
 	}
-
+	
 	@Bean
 	DataSource dataSource() {
 		return new DataSourceSpy(this.dataSource);
