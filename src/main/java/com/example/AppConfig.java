@@ -3,8 +3,7 @@ package com.example;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -23,8 +22,7 @@ public class AppConfig {
 
 	private final DataSourceProperties properties;
 	
-	@PersistenceContext
-	private final EntityManager entityManager;
+	private final EntityManagerFactory entityManagerFactory;
 	
 	DataSource dataSource;
 	
@@ -71,7 +69,7 @@ public class AppConfig {
 	}
 	
 	@Bean
-	EntityManager entityManager() {
-		return this.entityManager;
+	EntityManagerFactory entityManagerFactory() {
+		return this.entityManagerFactory;
 	}
 }
