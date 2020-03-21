@@ -13,7 +13,7 @@ import com.example.domain.customer.service.CustomerConverter;
 
 import lombok.RequiredArgsConstructor;
 
-//@Service
+@Service
 @RequiredArgsConstructor
 public class CustomerQueryService {
 

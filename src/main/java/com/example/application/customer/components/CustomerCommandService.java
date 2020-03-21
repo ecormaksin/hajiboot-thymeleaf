@@ -10,7 +10,7 @@ import com.example.domain.user.model.User;
 
 import lombok.RequiredArgsConstructor;
 
-//@Service
+@Service
 @RequiredArgsConstructor
 public class CustomerCommandService {
 

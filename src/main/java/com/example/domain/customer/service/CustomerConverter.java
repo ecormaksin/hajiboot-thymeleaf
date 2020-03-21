@@ -9,7 +9,7 @@ import com.example.domain.customer.model.LastName;
 
 //@Mapper
 //public interface CustomerConverter {
-//@Service
+@Service
 public class CustomerConverter {
 
 //	@Mapping(target = "firstName", source = "firstName.value")

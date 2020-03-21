@@ -21,7 +21,7 @@ import com.example.domain.customer.model.CustomerForm;
 
 import lombok.RequiredArgsConstructor;
 
-//@Controller
+@Controller
 @RequestMapping("customers")
 @RequiredArgsConstructor
 public class CustomerController {
