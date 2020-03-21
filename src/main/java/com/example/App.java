@@ -30,6 +30,6 @@ public class App {
 	}
 
 	private static String getEnvVar(String key) {
-		return key + ": " + StringUtils.defaultString(System.getenv(key), "unavailable");
+		return key + ": " + StringUtils.defaultString(System.getenv(key), "unavailable") + "<br/>";
 	}
 }
