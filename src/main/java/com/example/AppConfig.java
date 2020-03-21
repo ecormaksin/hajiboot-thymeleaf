@@ -23,52 +23,25 @@ public class AppConfig {
 
 	private final DataSourceProperties properties;
 	
-	DataSource dataSource;
-	
-	@RequiredArgsConstructor
-	private class DBUserInfo {
-		private final static int INDEX_USER_NAME = 0;
-		private final static int INDEX_PASSWORD = 1;
+	@Bean
+	DataSource dataSource() throws URISyntaxException {
+		URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
-		private final String userInfo;
-		
-		public String username() {
-			return getProperty(INDEX_USER_NAME);
-		}
-		
-		public String password() {
-			return getProperty(INDEX_PASSWORD);
-		}
-		
-		private String getProperty(int index) {
-			return this.userInfo.split(":")[index];
-		}
-	}
+		String username = dbUri.getUserInfo().split(":")[0];
+		String password = dbUri.getUserInfo().split(":")[1];
+		String dbUrl = "jdbc:log4jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
 
-	@Bean(destroyMethod = "close")
-	DataSource realDataSource() throws URISyntaxException {
-		
-		String databaseUrl = System.getenv("DATABASE_URL");
-		URI dbUri = new URI(databaseUrl);
-		String url = "jdbc:log4jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath() + ":" + dbUri.getPort() + dbUri.getPath();
-		DBUserInfo dBUserInfo = new DBUserInfo(dbUri.getUserInfo());
-		
 		DataSourceBuilder<?> factory = DataSourceBuilder
 				.create(this.properties.getClassLoader())
-				.url(url)
-				.username(dBUserInfo.username())
-				.password(dBUserInfo.password());
-		this.dataSource = factory.build();
-		return this.dataSource;
+				.url(dbUrl)
+				.username(username)
+				.password(password);
+
+		return new DataSourceSpy(factory.build());
 	}
 	
 	@Bean
-	DataSource dataSource() {
-		return new DataSourceSpy(this.dataSource);
-	}
-	
-	@Bean
-	LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) {
+	LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) throws URISyntaxException {
 		return builder
 					.dataSource(dataSource())
 					.build();
