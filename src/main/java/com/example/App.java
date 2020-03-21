@@ -15,7 +15,7 @@ public class App {
 		outputEnvVar("SPRING_DATASOURCE_USERNAME");
 		outputEnvVar("SPRING_DATASOURCE_PASSWORD");
 
-		SpringApplication.run(App.class, args);
+//		SpringApplication.run(App.class, args);
 	}
 
 	private static void outputEnvVar(String key) {
