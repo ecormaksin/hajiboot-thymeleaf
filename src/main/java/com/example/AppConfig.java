@@ -22,13 +22,17 @@ import net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy;
 public class AppConfig {
 
 	private final DataSourceProperties properties;
+
+	DataSource dataSource;
 	
-	@Bean
-	DataSource dataSource() throws URISyntaxException {
+	@Bean(destroyMethod = "close")
+	DataSource realDataSource() throws URISyntaxException {
+		
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
-		String username = dbUri.getUserInfo().split(":")[0];
-		String password = dbUri.getUserInfo().split(":")[1];
+		String[] userInfo = dbUri.getUserInfo().split(":");
+		String username = userInfo[0];
+		String password = userInfo[1];
 		String dbUrl = "jdbc:log4jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
 
 		DataSourceBuilder<?> factory = DataSourceBuilder
@@ -36,8 +40,14 @@ public class AppConfig {
 				.url(dbUrl)
 				.username(username)
 				.password(password);
+		this.dataSource = factory.build();
 
-		return new DataSourceSpy(factory.build());
+		return this.dataSource;
+	}
+
+	@Bean
+	DataSource dataSource() {
+		return new DataSourceSpy(this.dataSource);
 	}
 	
 	@Bean
