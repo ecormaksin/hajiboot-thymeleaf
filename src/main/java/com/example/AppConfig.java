@@ -16,8 +16,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import lombok.RequiredArgsConstructor;
 import net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy;
 
-@Profile("heroku")
-@Configuration
+//@Profile("heroku")
+//@Configuration
 @RequiredArgsConstructor
 public class AppConfig {
 
