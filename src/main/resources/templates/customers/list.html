@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout">
+	layout:decorate="~{layout}">
 <head>
 	<title>顧客一覧</title>
 </head>
 <body>
-<p layout:fragment="loginUser" th:include="~{loginUser :: loginUser}"></p>
 <div layout:fragment="content" class="col-sm-12">
 	<form th:action="@{/customers/create}" th:object="${customerForm}" class="form-horizontal" method="post">
 		<fieldset>
