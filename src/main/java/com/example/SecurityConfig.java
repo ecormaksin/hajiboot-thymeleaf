@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 			.authorizeRequests()
-			.antMatchers(LOGIN_FORM_RELATIVE_PATH, "/home").permitAll()
+			.antMatchers(LOGIN_FORM_RELATIVE_PATH).permitAll()
 			.anyRequest().authenticated();
 		http.formLogin()
 			.loginProcessingUrl("/login")
