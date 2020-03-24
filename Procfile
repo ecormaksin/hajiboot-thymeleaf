@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/*.jar --server.port=$PORT --spring.profiles.active=heroku
+web: java $JAVA_OPTS -jar target/*.jar --server.port=$PORT --spring.profiles.active=heroku --spring.datasource.url=${JDBC_DATABASE_URL/jdbc:/jdbc:log4jdbc:} --spring.datasource.username=${JDBC_DATABASE_USERNAME} --spring.datasource.password=${JDBC_DATABASE_PASSWORD}
