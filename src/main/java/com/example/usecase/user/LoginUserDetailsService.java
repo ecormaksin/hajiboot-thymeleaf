@@ -1,4 +1,4 @@
-package com.example.application.user.components;
+package com.example.usecase.user;
 
 import java.util.Optional;
 

@@ -1,43 +1,43 @@
 package com.example.domain.customer.model;
 
-import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.example.domain.user.model.User;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Getter
 @Entity
 @Table(name = "customers")
 public class Customer {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@Setter
+	@EmbeddedId
+	private CustomerId customerId;
 	
 	@NonNull
-	@Column(nullable = false)
-	private String firstName;
+	private FirstName firstName;
 	
 	@NonNull
-	@Column(nullable = false)
-	private String lastName;
+	private LastName lastName;
 	
+	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = true, name = "username")
 	private User user;
+	
+	protected Customer() {}
+	
+	public Customer(@NonNull FirstName firstName, @NonNull LastName lastName) {
+		super();
+		this.customerId = new CustomerId();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 }

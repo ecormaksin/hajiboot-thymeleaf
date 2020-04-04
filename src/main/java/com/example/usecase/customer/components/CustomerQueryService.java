@@ -1,4 +1,4 @@
-package com.example.application.customer.components;
+package com.example.usecase.customer.components;
 
 import java.util.List;
 
@@ -7,18 +7,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.customer.model.Customer;
-import com.example.domain.customer.model.CustomerForm;
+import com.example.domain.customer.model.CustomerId;
 import com.example.domain.customer.repository.CustomerRepository;
-import com.example.domain.customer.service.CustomerConverter;
+import com.example.usecase.customer.CustomerNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 public class CustomerQueryService {
 
 	private final CustomerRepository customerRepository;
-	private final CustomerConverter customerConverter;
 	
 	public List<Customer> findAll() {
 		return customerRepository.findAllWithUserOrderByName();
@@ -29,11 +28,7 @@ public class CustomerQueryService {
 	}
 	
 	public Customer findOne(Integer id) {
-		return customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
-	}
-	
-	public void findOne(Integer id, CustomerForm form) {
-		Customer customer = this.findOne(id);
-		customerConverter.updateFormFromEntity(customer, form);
+		CustomerId customerId = new CustomerId(id);
+		return customerRepository.findById(customerId).orElseThrow(CustomerNotFoundException::new);
 	}
 }

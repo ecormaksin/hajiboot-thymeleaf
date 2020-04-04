@@ -1,4 +1,4 @@
-package com.example.application.customer.components;
+package com.example.usecase.customer;
 
 public class CustomerNotFoundException extends RuntimeException {
 

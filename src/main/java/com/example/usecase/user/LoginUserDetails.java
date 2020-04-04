@@ -1,11 +1,12 @@
-package com.example.application.user.components;
+package com.example.usecase.user;
 
 import org.springframework.security.core.authority.AuthorityUtils;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
+@Getter
 @EqualsAndHashCode(callSuper=false)
 public class LoginUserDetails extends org.springframework.security.core.userdetails.User {
 	private static final long serialVersionUID = 1L;

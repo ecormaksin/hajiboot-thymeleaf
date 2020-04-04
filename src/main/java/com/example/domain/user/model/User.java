@@ -13,15 +13,11 @@ import com.example.domain.customer.model.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
-@Data
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "users")
 @ToString(exclude = "customers")
@@ -35,4 +31,6 @@ public class User {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	private List<Customer> customers;
+	
+	protected User() {}
 }

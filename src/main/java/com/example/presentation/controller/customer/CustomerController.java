@@ -13,21 +13,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.application.customer.components.CustomerCommandService;
-import com.example.application.customer.components.CustomerQueryService;
-import com.example.application.user.components.LoginUserDetails;
 import com.example.domain.customer.model.Customer;
-import com.example.domain.customer.model.CustomerForm;
+import com.example.domain.customer.model.CustomerId;
+import com.example.usecase.customer.components.CustomerCommandService;
+import com.example.usecase.customer.components.CustomerQueryService;
+import com.example.usecase.user.LoginUserDetails;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+//@Controller
 @RequestMapping("customers")
 @RequiredArgsConstructor
 public class CustomerController {
 
 	private final CustomerQueryService customerQueryService;
 	private final CustomerCommandService customerCommandService;
+	private final CustomerConverter customerConverter;
 	
 	@ModelAttribute
 	CustomerForm setUpForm() {
@@ -46,13 +47,15 @@ public class CustomerController {
 		if (result.hasErrors()) {
 			return list(model);
 		}
-		customerCommandService.create(form, userDetails.getUser());
+		Customer customer = customerConverter.formToEntity(form);
+		customerCommandService.create(customer, userDetails.getUser());
 		return "redirect:/customers";
 	}
 	
 	@GetMapping(value = "edit", params = "form")
 	String editForm(@RequestParam Integer id, CustomerForm form) {
-		customerQueryService.findOne(id, form);
+		Customer customer = customerQueryService.findOne(id);
+		customerConverter.updateFormFromEntity(customer, form);
 		return "customers/edit";
 	}
 	
@@ -61,7 +64,8 @@ public class CustomerController {
 		if (result.hasErrors()) {
 			return editForm(id, form);
 		}
-		customerCommandService.update(id, form, userDetails.getUser());
+		Customer customer = customerConverter.formToEntity(form);
+		customerCommandService.update(id, customer, userDetails.getUser());
 		return "redirect:/customers";
 	}
 	
@@ -72,7 +76,7 @@ public class CustomerController {
 	
 	@PostMapping(value = "delete")
 	String delete(@RequestParam Integer id) {
-		customerCommandService.delete(id);
+		customerCommandService.delete(new CustomerId(id));
 		return "redirect:/customers";
 	}
 }

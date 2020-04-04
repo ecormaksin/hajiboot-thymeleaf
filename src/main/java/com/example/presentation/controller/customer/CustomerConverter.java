@@ -1,34 +1,32 @@
-package com.example.domain.customer.service;
+package com.example.presentation.controller.customer;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.example.domain.customer.model.Customer;
-import com.example.domain.customer.model.CustomerForm;
 import com.example.domain.customer.model.FirstName;
 import com.example.domain.customer.model.LastName;
 
 //@Mapper
 //public interface CustomerConverter {
-@Service
+@Component
 public class CustomerConverter {
 
 //	@Mapping(target = "firstName", source = "firstName.value")
 //	@Mapping(target = "lastName", source = "lastName.value")
 //	Customer formToEntity(CustomerForm aCustomerForm);
 	public Customer formToEntity(CustomerForm aCustomerForm) {
-		Customer customer = new Customer();
-		customer.setFirstName(aCustomerForm.getFirstName().getValue());
-		customer.setLastName(aCustomerForm.getLastName().getValue());
-		return customer;
+		FirstName firstName = new FirstName(aCustomerForm.getFirstName());
+		LastName lastName = new LastName(aCustomerForm.getLastName());
+		return new Customer(firstName, lastName);
 	}
 	
 //	@Mapping(target = "firstName.value", source = "firstName")
 //	@Mapping(target = "lastName.value", source = "lastName")
 //	void updateFormFromEntity(Customer aCustomer, @MappingTarget CustomerForm form);
 	public void updateFormFromEntity(Customer aCustomer, CustomerForm form) {
-		FirstName firstName = new FirstName(aCustomer.getFirstName());
+		String firstName = aCustomer.getFirstName().getValue();
 		form.setFirstName(firstName);
-		LastName lastName = new LastName(aCustomer.getLastName());
+		String lastName = aCustomer.getLastName().getValue();
 		form.setLastName(lastName);
 	}
 }
