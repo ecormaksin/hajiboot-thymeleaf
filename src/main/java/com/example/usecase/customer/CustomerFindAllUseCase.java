@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.domain.customer.model.Customer;
-import com.example.domain.customer.repository.CustomerRepository;
+import com.example.domain.model.customer.Customer;
+import com.example.domain.model.customer.CustomerRepository;
 
 import lombok.RequiredArgsConstructor;
 

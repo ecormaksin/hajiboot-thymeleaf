@@ -1,8 +1,6 @@
-package com.example.domain.user.repository;
+package com.example.domain.model.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.example.domain.user.model.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
 

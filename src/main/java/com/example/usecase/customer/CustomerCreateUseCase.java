@@ -2,9 +2,9 @@ package com.example.usecase.customer;
 
 import org.springframework.stereotype.Service;
 
-import com.example.domain.customer.model.Customer;
-import com.example.domain.customer.repository.CustomerRepository;
-import com.example.domain.user.model.User;
+import com.example.domain.model.customer.Customer;
+import com.example.domain.model.customer.CustomerRepository;
+import com.example.domain.model.user.User;
 
 @Service
 public class CustomerCreateUseCase extends CustomerAbstractSaveUseCase {

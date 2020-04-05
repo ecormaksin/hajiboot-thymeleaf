@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.domain.customer.model.Customer;
+import com.example.domain.model.customer.Customer;
+import com.example.service.LoginUserDetails;
 import com.example.usecase.customer.CustomerFindOneUseCase;
 import com.example.usecase.customer.CustomerUpdateUseCase;
-import com.example.usecase.user.LoginUserDetails;
 
 import lombok.RequiredArgsConstructor;
 

@@ -3,7 +3,7 @@ package com.example.presentation.controller.customer;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.example.domain.customer.model.NamePart;
+import com.example.domain.model.customer.NamePart;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

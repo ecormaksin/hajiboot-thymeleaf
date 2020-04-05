@@ -1,4 +1,4 @@
-package com.example.domain.customer.model;
+package com.example.domain.model.customer;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,10 +11,10 @@ import lombok.Getter;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @Embeddable
-public class FirstName extends NamePart {
-
-	@Column(name = "first_name", nullable = false, length = 30)
+public class LastName extends NamePart {
+	
+	@Column(name = "last_name", nullable = false, length = NamePart.SIZE_MAX)
 	private String value;
 
-	protected FirstName() {}
+	protected LastName() {}
 }

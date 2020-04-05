@@ -2,9 +2,9 @@ package com.example.presentation.controller.customer;
 
 import org.springframework.stereotype.Component;
 
-import com.example.domain.customer.model.Customer;
-import com.example.domain.customer.model.FirstName;
-import com.example.domain.customer.model.LastName;
+import com.example.domain.model.customer.Customer;
+import com.example.domain.model.customer.FirstName;
+import com.example.domain.model.customer.LastName;
 
 //@Mapper
 //public interface CustomerConverter {

@@ -1,4 +1,4 @@
-package com.example.domain.customer.model;
+package com.example.domain.model.customer;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.example.domain.user.model.User;
+import com.example.domain.model.user.User;
 
 import lombok.Getter;
 import lombok.NonNull;

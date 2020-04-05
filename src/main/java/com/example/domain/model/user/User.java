@@ -1,4 +1,4 @@
-package com.example.domain.user.model;
+package com.example.domain.model.user;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.example.domain.customer.model.Customer;
+import com.example.domain.model.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;

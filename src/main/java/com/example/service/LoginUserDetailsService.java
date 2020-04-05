@@ -1,4 +1,4 @@
-package com.example.usecase.user;
+package com.example.service;
 
 import java.util.Optional;
 
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.domain.user.model.User;
-import com.example.domain.user.repository.UserRepository;
+import com.example.domain.model.user.User;
+import com.example.domain.model.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

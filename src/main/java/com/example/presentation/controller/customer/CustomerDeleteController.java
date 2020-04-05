@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.domain.customer.model.CustomerId;
+import com.example.domain.model.customer.CustomerId;
 import com.example.usecase.customer.CustomerDeleteUseCase;
 
 import lombok.RequiredArgsConstructor;

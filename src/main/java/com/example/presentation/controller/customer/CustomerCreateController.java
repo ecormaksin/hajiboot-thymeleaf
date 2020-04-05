@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.domain.customer.model.Customer;
+import com.example.domain.model.customer.Customer;
+import com.example.service.LoginUserDetails;
 import com.example.usecase.customer.CustomerCreateUseCase;
-import com.example.usecase.user.LoginUserDetails;
 
 import lombok.RequiredArgsConstructor;
 

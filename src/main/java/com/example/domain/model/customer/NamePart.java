@@ -1,4 +1,4 @@
-package com.example.domain.customer.model;
+package com.example.domain.model.customer;
 
 public abstract class NamePart {
 	
